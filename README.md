@@ -18,7 +18,7 @@ This project is an interactive and ultra-realistic Solar System simulation devel
 Projeyi aşağıdaki bağlantıdan canlı olarak inceleyebilirsiniz:
 
 👉 **Simülasyonu Başlat / Start Simulation:**
-**[https://magnusmaximus77.github.io/gunes-sistemi-simulasyonu/](https://magnusmaximus77.github.io/gunes-sistemi-simulasyonu/)**
+**[https://maximusprime77.github.io/gunes-sistemi-simulasyonu/](https://maximusprime77.github.io/gunes-sistemi-simulasyonu/)**
 
 ---
 
