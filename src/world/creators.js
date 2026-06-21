@@ -123,6 +123,8 @@ export function createPlanetSystem(scene, planets, config) {
         scene.add(moon); planets.push({ mesh: moon, type: 'moon' });
     }
     const orbit = createOrbit(scene, distance);
+    orbit.visible = false;
+    scene.add(orbit);
     planets.push({ mesh: mesh, distance: distance, speed: speed, name: name, type: 'planet', orbit: orbit });
     scene.add(mesh);
 }
@@ -140,6 +142,8 @@ export function createDwarfPlanet(scene, planets, config) {
 
     const label = createLabel(name); label.scale.set(3, 0.75, 1); label.position.set(0, size + 0.5, 0); mesh.add(label); mesh.userData.label = label;
     const orbit = createDwarfOrbit(scene, distance, tiltX, tiltZ);
+    orbit.visible = false;
+    scene.add(orbit);
     planets.push({ mesh: mesh, distance: distance, speed: speed, name: name, type: 'dwarf', orbitRef: orbit });
     scene.add(mesh);
 }

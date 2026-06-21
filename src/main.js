@@ -15,7 +15,10 @@ const state = {
     comparisonMesh: null,
     isTrueScale: false,
     simulationStartTime: Date.now(),
-    isLocked: true
+    isLocked: true,
+    showOrbits: false,
+    showUI: true,
+    panelOpacity: 85
 };
 
 const planets = [];
@@ -50,6 +53,92 @@ createDwarfPlanet(scene, planets, { name: "Eris", size: 0.9, texture: "eris.jpg"
 // 6. UI VE ETKİLEŞİM
 // ==========================================
 const showInfoFn = setupUI(scene, camera, controls, planets, sun, asteroidMesh, state);
+
+// ==========================================
+// 6.5. DİNAMİK SİMÜLASYON AYARLARINI UYGULA
+// ==========================================
+function applySimulationSettings() {
+    planets.forEach(p => {
+        if (p.mesh && p.mesh.userData) {
+            const artisticSize = p.mesh.userData.artisticSize || 1;
+            const trueSize = p.mesh.userData.trueSize || artisticSize;
+            
+            // Gerçekçi veya artistik ölçeğe göre boyutları ayarla
+            let targetScale = 1.0;
+            if (p.type === 'moon') {
+                targetScale = state.isTrueScale ? 0.15 : 0.4;
+                p.mesh.userData.moonDist = state.isTrueScale ? 1.5 : 4.0;
+            } else {
+                targetScale = state.isTrueScale ? (trueSize / artisticSize) : 1.0;
+            }
+            p.mesh.scale.setScalar(targetScale);
+
+            // Bulutları gezegene göre orantıla
+            if (p.mesh.userData.clouds) {
+                p.mesh.userData.clouds.scale.setScalar(1.02);
+            }
+
+            // Etiket pozisyonunu boyutla orantılı güncelle
+            if (p.mesh.userData.label) {
+                const currentSize = state.isTrueScale ? trueSize : artisticSize;
+                p.mesh.userData.label.position.y = currentSize + 0.8;
+            }
+
+            // Yörünge mesafesini güncelle
+            p.distance = state.isTrueScale ? (p.mesh.userData.trueDist || p.distance) : (p.mesh.userData.artisticDist || p.distance);
+        }
+
+        // Yörünge çizgi boyutunu ve görünürlüğünü güncelle
+        const orbitMesh = p.orbit || p.orbitRef;
+        if (orbitMesh) {
+            orbitMesh.visible = state.showOrbits;
+            const artisticDist = p.mesh.userData.artisticDist || 1;
+            const trueDist = p.mesh.userData.trueDist || artisticDist;
+            const orbitScale = state.isTrueScale ? (trueDist / artisticDist) : 1.0;
+            orbitMesh.scale.setScalar(orbitScale);
+        }
+    });
+}
+
+// Arayüzden gelen değişiklikleri dinle
+window.addEventListener('simulation-settings-changed', () => {
+    applySimulationSettings();
+});
+
+// ==========================================
+// 6.6. LIVELY WALLPAPER ENTEGRASYONU (API)
+// ==========================================
+window.livelyPropertyListener = function (name, val) {
+    switch (name) {
+        case "isLocked":
+            state.isLocked = val;
+            break;
+        case "isPaused":
+            state.isPaused = val;
+            break;
+        case "timeScale":
+            state.timeScale = val;
+            break;
+        case "isTrueScale":
+            state.isTrueScale = val;
+            break;
+        case "showOrbits":
+            state.showOrbits = val;
+            break;
+        case "showUI":
+            state.showUI = val;
+            break;
+        case "panelOpacity":
+            state.panelOpacity = val;
+            localStorage.setItem('panelOpacity', val.toString());
+            break;
+    }
+    applySimulationSettings();
+    window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
+};
+
+// Başlangıç ayarlarını uygula
+applySimulationSettings();
 
 // ==========================================
 // 7. ANİMASYON DÖNGÜSÜ

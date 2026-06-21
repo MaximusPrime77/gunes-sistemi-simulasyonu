@@ -4,6 +4,9 @@ import { planetInfo } from '../data/database.js';
 
 export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, state) {
     const pauseBtn = document.getElementById('pauseBtn');
+    const lockBtn = document.getElementById('lockBtn');
+    const scaleBtn = document.getElementById('scaleBtn');
+    const orbitBtn = document.getElementById('orbitBtn');
 
     const speedSlider = document.getElementById('speedSlider');
     const speedValueEl = document.getElementById('speedValue');
@@ -71,9 +74,10 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
     }
 
     if (pauseBtn) {
-        pauseBtn.onclick = function () {
+        pauseBtn.onclick = function (e) {
+            e.stopPropagation();
             state.isPaused = !state.isPaused;
-            this.innerHTML = state.isPaused ? "Devam Et ▶️" : "Durdur ⏸️";
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
         };
     }
 
@@ -81,6 +85,7 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
         speedSlider.oninput = function () {
             state.timeScale = parseFloat(this.value);
             if (speedValueEl) speedValueEl.innerText = state.timeScale + "x";
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
         };
     }
 
@@ -91,7 +96,6 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
             if (opacityValueEl) opacityValueEl.innerText = savedOpacity + "%";
             document.documentElement.style.setProperty('--panel-opacity', (parseFloat(savedOpacity) / 100).toString());
         } else {
-            // Varsayılan değer
             document.documentElement.style.setProperty('--panel-opacity', '0.85');
         }
 
@@ -100,6 +104,8 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
             if (opacityValueEl) opacityValueEl.innerText = val + "%";
             document.documentElement.style.setProperty('--panel-opacity', (parseFloat(val) / 100).toString());
             localStorage.setItem('panelOpacity', val);
+            state.panelOpacity = parseInt(val);
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
         };
     }
     if (closeBtn) {
@@ -110,7 +116,16 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
     }
 
     const onPointerDown = (event) => {
-        if (state.isLocked) return; // Kilitliyken etkileşimi tamamen yoksay
+        // Tıklanan eleman UI elemanı mı (kontrol paneli veya bilgi kartı)?
+        // Eğer öyleyse hiçbir şey yapma (kapatma).
+        if (event.target.closest('#ui-container') || event.target.closest('#info-panel') || event.target.closest('#menu-toggle-btn') || event.target.closest('#close-btn')) {
+            return;
+        }
+
+        if (event.button === 1) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
 
         // Raycasting koordinatları canvas'a (controls.domElement) göre hesaplanmalıdır
         const rect = controls.domElement.getBoundingClientRect();
@@ -120,56 +135,75 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(scene.children, true);
 
-        if (intersects.length === 0) {
+        // Gezegene isabet edip etmediğini kontrol et
+        let clickedPlanetMesh = null;
+        if (intersects.length > 0) {
+            for (let i = 0; i < intersects.length; i++) {
+                const obj = intersects[i].object;
+                if (obj.type === 'Sprite' || obj.type === 'Line' || obj.type === 'LineLoop' || obj.type === 'Points') continue;
+                if (obj.userData.name || (obj.parent && obj.parent.userData.name)) {
+                    clickedPlanetMesh = obj;
+                    break;
+                }
+            }
+        }
+
+        // Eğer boşluğa tıklandıysa (herhangi bir gezegene tıklanmadıysa)
+        if (!clickedPlanetMesh) {
             if (event.button === 0) {
+                // Bilgi panelini kapat
                 state.focusedPlanet = null;
                 infoPanel.classList.remove('active');
                 if (state.comparisonMesh) { scene.remove(state.comparisonMesh); state.comparisonMesh = null; }
+                
+                // Kontrol panelini kapat
+                if (uiContainer && uiContainer.classList.contains('active')) {
+                    uiContainer.classList.remove('active');
+                    if (menuToggleBtn) {
+                        menuToggleBtn.classList.remove('active');
+                        menuToggleBtn.innerHTML = '⚙';
+                    }
+                }
             }
             return;
         }
 
-        for (let i = 0; i < intersects.length; i++) {
-            const obj = intersects[i].object;
-            if (obj.type === 'Sprite' || obj.type === 'Line' || obj.type === 'LineLoop' || obj.type === 'Points') continue;
+        // Buradan sonrası kilit durumuna bağlıdır
+        if (state.isLocked) return;
 
-            if (obj.userData.name || (obj.parent && obj.parent.userData.name)) {
-                let name = obj.userData.name || obj.parent.userData.name;
+        let name = clickedPlanetMesh.userData.name || clickedPlanetMesh.parent.userData.name;
 
-                // SOL TIK - Bilgi göster VE hologram için focusedPlanet ayarla
-                if (event.button === 0) {
-                    state.focusedPlanet = obj; // Hologram kıyaslama için
-                    showInfo(name);
-                }
+        // SOL TIK - Bilgi göster VE hologram için focusedPlanet ayarla
+        if (event.button === 0) {
+            state.focusedPlanet = clickedPlanetMesh; // Hologram kıyaslama için
+            showInfo(name);
+        }
 
-                if (event.button === 1) { // ORTA TUŞ (Tekerlek Tıklaması)
-                    state.focusedPlanet = obj;
-                    const targetPos = new THREE.Vector3();
-                    state.focusedPlanet.getWorldPosition(targetPos);
+        if (event.button === 1) { // ORTA TUŞ (Tekerlek Tıklaması)
+            state.focusedPlanet = clickedPlanetMesh;
+            const targetPos = new THREE.Vector3();
+            state.focusedPlanet.getWorldPosition(targetPos);
 
-                    // KAMERAYI IŞINLA (YAKLAŞ)
-                    const currentScale = state.focusedPlanet.scale.x;
-                    const realRadius = (state.focusedPlanet.userData.artisticSize || 1) * currentScale;
+            // KAMERAYI IŞINLA (YAKLAŞ)
+            const currentScale = state.focusedPlanet.scale.x;
+            const realRadius = (state.focusedPlanet.userData.artisticSize || 1) * currentScale;
 
-                    const dist = realRadius * 5 + 2;
-                    const offset = new THREE.Vector3(dist, dist * 0.5, dist);
+            const dist = realRadius * 5 + 2;
+            const offset = new THREE.Vector3(dist, dist * 0.5, dist);
 
-                    camera.position.copy(targetPos).add(offset);
-                    controls.target.copy(targetPos);
+            camera.position.copy(targetPos).add(offset);
+            controls.target.copy(targetPos);
 
-                    showInfo(name);
-                }
-                break;
-            }
+            showInfo(name);
         }
     };
 
     if (controls.domElement) {
-        controls.domElement.addEventListener('pointerdown', onPointerDown);
-        // Orta tuş tıklamasını bazı tarayıcılarda auxclick olarak yakalamak en güvenli yoldur
+        controls.domElement.addEventListener('pointerdown', onPointerDown, { capture: true });
+        // Orta tuş tıklamasını auxclick ile yakalamak en güvenli yoldur
         controls.domElement.addEventListener('auxclick', (e) => {
             if (e.button === 1) onPointerDown(e);
-        });
+        }, { capture: true });
     }
 
     // ==========================================
@@ -220,96 +254,91 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
         });
     }
 
-    // OrbitControls'ün kendi tekerlek (wheel) olayını dinlemesini engellemek için canvas üzerinde olayı capture aşamasında durduruyoruz.
-    if (controls.domElement) {
-        controls.domElement.addEventListener('wheel', (event) => {
-            if (state.isLocked) return;
-            event.stopPropagation();
-        }, { capture: true });
-    }
-
-    // Alternatif 2: Fare Tekerleği (Wheel) ile Zoom
-    window.addEventListener('wheel', (event) => {
-        if (state.isLocked) return;
-        const zoomScale = 0.90;
-        if (event.deltaY < 0) {
-            controls.dollyIn(zoomScale);
-        } else {
-            controls.dollyOut(zoomScale);
-        }
-        controls.update();
-    }, { passive: true });
-
-    // Alternatif 3: Klavye Tuşları ile Zoom (W / S / Up / Down / + / -)
-    let isShiftDown = false;
-    let lastMouseY = 0;
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Shift') isShiftDown = true;
-        if (state.isLocked) return;
-
-        const keyZoomScale = 0.90;
-        if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp' || e.key === '+') {
-            controls.dollyIn(keyZoomScale);
-            controls.update();
-        } else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown' || e.key === '-') {
-            controls.dollyOut(keyZoomScale);
-            controls.update();
-        }
-    });
-
-    window.addEventListener('keyup', (e) => {
-        if (e.key === 'Shift') isShiftDown = false;
-    });
-
-    // Alternatif 4: Shift + Sol Tık ve Fareyi Sürükleyerek Zoom
-    window.addEventListener('pointerdown', (e) => {
-        lastMouseY = e.clientY;
-    });
-
-    window.addEventListener('pointermove', (event) => {
-        if (state.isLocked) return;
-        if (isShiftDown && event.buttons === 1) { // Shift basılı ve Sol Tık ile sürükleme
-            const deltaY = event.clientY - lastMouseY;
-            const dragZoomScale = 0.95;
-            if (deltaY < 0) {
-                // Yukarı sürükleme -> Yakınlaş
-                controls.dollyIn(dragZoomScale);
-            } else if (deltaY > 0) {
-                // Aşağı sürükleme -> Uzaklaş
-                controls.dollyOut(dragZoomScale);
-            }
-            controls.update();
-        }
-        lastMouseY = event.clientY;
-    });
-
     // ==========================================
-    // FOCUS KAYBINDA SÜRÜKLEME KİLİDİNİ ÇÖZ (lost focus drag lock)
+    // KESİN ETKİLEŞİM VE ORBİTCONTROLS GÜVENLİK YÖNETİMİ
     // ==========================================
-    const clearDragLock = () => {
-        const upEvent = new PointerEvent('pointerup', { bubbles: true, cancelable: true });
-        window.dispatchEvent(upEvent);
-        document.dispatchEvent(upEvent);
-        if (controls.domElement) controls.domElement.dispatchEvent(upEvent);
-        isShiftDown = false;
+    
+    // Kontrollerin kilit durumunu eşitleyen fonksiyon
+    const syncOrbitControlsState = () => {
+        controls.enabled = !state.isLocked;
     };
 
+    const clearDragLock = () => {
+        if (controls.domElement) {
+            const upEvent = new PointerEvent('pointerup', { bubbles: false, cancelable: true });
+            controls.domElement.dispatchEvent(upEvent);
+        }
+    };
+
+    if (controls.domElement) {
+        // Fare canvas'ın üzerine girdiğinde güvenlik kontrolü yap
+        controls.domElement.addEventListener('pointerenter', (event) => {
+            // Eğer fare sol tuşu basılı olarak içeri girdiyse (dışarıda başlayan sürükleme/dosya taşıma)
+            // OrbitControls'ü devre dışı bırak. Serbest dolaşıyorsa kilit durumuna göre etkinleştir.
+            if (event.buttons === 1) {
+                controls.enabled = false;
+            } else {
+                syncOrbitControlsState();
+            }
+        });
+
+        // Fare canvas üzerinde hareket ederken tuş durumunu sürekli denetle
+        controls.domElement.addEventListener('pointermove', (event) => {
+            if (event.buttons === 0) {
+                // Fare serbest bırakıldıysa controls kilit durumuna geri döner
+                syncOrbitControlsState();
+            }
+        });
+
+        // Fare canvas'tan ayrıldığında veya tık bırakıldığında sürükleme kilidini temizle
+        const deactivateControls = () => {
+            clearDragLock();
+        };
+
+        controls.domElement.addEventListener('pointerleave', deactivateControls);
+        controls.domElement.addEventListener('pointerout', deactivateControls);
+    }
+
+    // Pencere veya sekme odağını kaybettiğinde de güvenlik için sürüklemeyi sıfırla
     window.addEventListener('blur', clearDragLock);
     window.addEventListener('focusout', clearDragLock);
     document.addEventListener('visibilitychange', clearDragLock);
+    window.addEventListener('pointerup', clearDragLock);
 
     // ==========================================
-    // ETKİLEŞİM KİLİDİ (LOCK / UNLOCK) BAĞLANTISI
+    // ETKİLEŞİM VE YENİ BUTONLARIN BAĞLANTILARI
     // ==========================================
-    const lockBtn = document.getElementById('lockBtn');
     if (lockBtn) {
         lockBtn.onclick = function (e) {
             e.stopPropagation();
             state.isLocked = !state.isLocked;
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
+        };
+    }
 
+    if (scaleBtn) {
+        scaleBtn.onclick = function (e) {
+            e.stopPropagation();
+            state.isTrueScale = !state.isTrueScale;
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
+        };
+    }
+
+    if (orbitBtn) {
+        orbitBtn.onclick = function (e) {
+            e.stopPropagation();
+            state.showOrbits = !state.showOrbits;
+            window.dispatchEvent(new CustomEvent('simulation-settings-changed'));
+        };
+    }
+
+    // ==========================================
+    // MERKEZİ UI VE KONTROL GÜNCELLEME SİSTEMİ
+    // ==========================================
+    function updateUIElements() {
+        // Kilit Butonu & controls ayarları
+        if (lockBtn) {
             if (state.isLocked) {
-                // KİLİTLİ MOD: Tüm fare fonksiyonları kapatılır
                 controls.mouseButtons = {
                     LEFT: THREE.MOUSE.NONE,
                     MIDDLE: THREE.MOUSE.NONE,
@@ -318,20 +347,101 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                 controls.enableZoom = false;
                 lockBtn.innerHTML = "Etkileşim: Kilitli 🔒";
                 lockBtn.classList.remove('unlocked');
-                clearDragLock();
+                syncOrbitControlsState();
             } else {
-                // AÇIK MOD: Sol tık döndürür, tekerlek zoom yapar, orta tık odaklanma için serbest kalır
                 controls.mouseButtons = {
                     LEFT: THREE.MOUSE.ROTATE,
-                    MIDDLE: THREE.MOUSE.NONE, // Orta tık sürüklemesini kapattık, sadece tıklama odaklaması çalışacak
-                    RIGHT: THREE.MOUSE.NONE // Sağ tık menüsü çakışmasın diye pasif
+                    MIDDLE: THREE.MOUSE.NONE,
+                    RIGHT: THREE.MOUSE.NONE
                 };
-                controls.enableZoom = true;
+                controls.enableZoom = false;
                 lockBtn.innerHTML = "Etkileşim: Açık 🔓";
                 lockBtn.classList.add('unlocked');
+                syncOrbitControlsState();
             }
-        };
+        }
+
+        // Durdur/Devam Et
+        if (pauseBtn) {
+            pauseBtn.innerHTML = state.isPaused ? "Devam Et ▶️" : "Durdur ⏸️";
+            if (state.isPaused) pauseBtn.classList.add('active');
+            else pauseBtn.classList.remove('active');
+        }
+
+        // Gerçekçi Ölçek
+        if (scaleBtn) {
+            scaleBtn.innerHTML = state.isTrueScale ? "Gerçekçi Ölçek: Açık 🔴" : "Gerçekçi Ölçek: Kapalı 🔘";
+            if (state.isTrueScale) scaleBtn.classList.add('active');
+            else scaleBtn.classList.remove('active');
+        }
+
+        // Yörüngeler
+        if (orbitBtn) {
+            orbitBtn.innerHTML = state.showOrbits ? "Yörüngeler: Gösteriliyor 🔵" : "Yörüngeler: Gizli 👁️‍🗨️";
+            if (state.showOrbits) orbitBtn.classList.add('active');
+            else orbitBtn.classList.remove('active');
+        }
+
+        // Hız Sürükleyicisi
+        if (speedSlider) {
+            speedSlider.value = state.timeScale;
+            if (speedValueEl) speedValueEl.innerText = state.timeScale + "x";
+        }
+
+        // Şeffaflık Sürükleyicisi & CSS Değişkeni
+        if (opacitySlider) {
+            const opacityVal = state.panelOpacity !== undefined ? state.panelOpacity : 85;
+            opacitySlider.value = opacityVal;
+            if (opacityValueEl) opacityValueEl.innerText = opacityVal + "%";
+            document.documentElement.style.setProperty('--panel-opacity', (opacityVal / 100).toString());
+        }
+
+        // Yardım Paneli Durum Uyarısı & Opaklıklar
+        const warningEl = document.getElementById('help-status-warning');
+        const helpItems = document.querySelectorAll('.help-item');
+        if (warningEl) {
+            if (state.isLocked) {
+                warningEl.innerHTML = "⚠️ ETKİLEŞİM KİLİTLİ: Döndürmek ve Odaklanmak için kilidi açın 🔒";
+                warningEl.classList.remove('unlocked');
+                warningEl.style.background = "rgba(255, 68, 68, 0.1)";
+                warningEl.style.color = "#ff6666";
+                warningEl.style.borderColor = "rgba(255, 68, 68, 0.2)";
+            } else {
+                warningEl.innerHTML = "🎮 ETKİLEŞİM AÇIK: Aşağıdaki kontrolleri kullanabilirsiniz 🔓";
+                warningEl.classList.add('unlocked');
+                warningEl.style.background = "rgba(0, 200, 100, 0.1)";
+                warningEl.style.color = "#00ff88";
+                warningEl.style.borderColor = "rgba(0, 200, 100, 0.2)";
+            }
+        }
+
+        helpItems.forEach(item => {
+            if (state.isLocked) {
+                item.classList.add('disabled');
+            } else {
+                item.classList.remove('disabled');
+            }
+        });
+
+        // Lively Wallpaper UI Gizleme/Gösterme Desteği
+        const menuToggleBtn = document.getElementById('menu-toggle-btn');
+        const uiContainer = document.getElementById('ui-container');
+        if (menuToggleBtn && uiContainer) {
+            if (state.showUI === false) {
+                menuToggleBtn.style.setProperty('display', 'none', 'important');
+                uiContainer.style.setProperty('display', 'none', 'important');
+            } else {
+                menuToggleBtn.style.removeProperty('display');
+                uiContainer.style.removeProperty('display');
+            }
+        }
     }
+
+    // Custom Event Dinleyici Kaydı
+    window.addEventListener('simulation-settings-changed', updateUIElements);
+
+    // Başlangıç Durumunu Uygula
+    setTimeout(updateUIElements, 50);
 
     // showInfo fonksiyonunu dışarı aktar (sinematik tur için)
     return showInfo;

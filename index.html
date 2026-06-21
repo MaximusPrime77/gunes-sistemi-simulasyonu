@@ -21,8 +21,8 @@
             --border-glow: rgba(79, 172, 254, 0.35);
             --text-primary: #e8f4ff;
             --text-secondary: #8899aa;
-            --font-display: 'Orbitron', 'Rajdhani', sans-serif;
-            --font-body: 'Rajdhani', 'Segoe UI', sans-serif;
+            --font-display: 'Outfit', 'Segoe UI', sans-serif;
+            --font-body: 'Outfit', 'Segoe UI', sans-serif;
         }
 
         /* GENEL AYARLAR */
@@ -192,6 +192,13 @@
             animation: scaleGlow 2s infinite;
         }
 
+        #orbitBtn.active {
+            background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+            color: #fff;
+            border-color: #005bea;
+            box-shadow: 0 0 25px rgba(0, 198, 251, 0.4);
+        }
+
         /* Etkileşim Kilidi Açıkken Parlayan Durum */
         #lockBtn.unlocked {
             background: linear-gradient(135deg, rgba(255, 170, 0, 0.25) 0%, rgba(255, 100, 0, 0.15) 100%);
@@ -213,7 +220,6 @@
         }
 
         @keyframes scaleGlow {
-
             0%,
             100% {
                 box-shadow: 0 0 20px rgba(255, 68, 68, 0.4);
@@ -223,6 +229,12 @@
                 box-shadow: 0 0 35px rgba(255, 68, 68, 0.7);
             }
         }
+
+        @keyframes statusGlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
 
         /* SLIDER - Premium */
         .slider-container {
@@ -309,6 +321,12 @@
             cursor: default;
         }
 
+        .help-item.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            filter: grayscale(0.5);
+        }
+
         .help-item:last-child {
             margin-bottom: 0;
         }
@@ -321,6 +339,7 @@
         .help-icon {
             display: none;
         }
+
 
         .help-content {
             flex: 1;
@@ -535,7 +554,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Outfit:wght@300;400;600;700&display=swap"
         rel="stylesheet">
 
     <script type="importmap">
@@ -554,6 +573,8 @@
     <div id="ui-container">
         <button id="lockBtn">Etkileşim: Kilitli 🔒</button>
         <button id="pauseBtn">Durdur ⏸️</button>
+        <button id="scaleBtn">Gerçekçi Ölçek: Kapalı 🔘</button>
+        <button id="orbitBtn">Yörüngeler: Gizli 👁️‍🗨️</button>
         <div class="slider-container">
             <label>HIZ ÇARPANI <span id="speedValue">1x</span></label>
             <input type="range" id="speedSlider" min="0" max="3" step="0.1" value="1">
@@ -570,6 +591,10 @@
         <!-- Premium Yardım Paneli -->
         <div class="help-panel">
             <div class="help-panel-title">🎮 Kontroller</div>
+            
+            <div id="help-status-warning" style="text-align: center; font-size: 11px; padding: 8px 6px; border-radius: 8px; margin-bottom: 12px; background: rgba(255, 68, 68, 0.1); color: #ff6666; border: 1px solid rgba(255, 68, 68, 0.2); font-weight: bold; letter-spacing: 0.5px; animation: statusGlow 2s infinite;">
+                ⚠️ ETKİLEŞİM KİLİTLİ: Döndürmek ve Odaklanmak için kilidi açın 🔒
+            </div>
 
             <div class="help-item" id="help-left-click">
                 <div class="help-content">
@@ -589,20 +614,6 @@
                 <div class="help-content">
                     <div class="help-action">SOL TIK SÜRÜKLE</div>
                     <div class="help-desc">Evreni döndür (Kilit açıkken)</div>
-                </div>
-            </div>
-
-            <div class="help-item" id="help-scroll">
-                <div class="help-content">
-                    <div class="help-action">TEKERLEK / W - S TUŞLARI</div>
-                    <div class="help-desc">Yakınlaştır / Uzaklaştır (Kilit açıkken)</div>
-                </div>
-            </div>
-
-            <div class="help-item" id="help-shift-drag">
-                <div class="help-content">
-                    <div class="help-action">SHIFT VEYA ORTA TIK SÜRÜKLE</div>
-                    <div class="help-desc">Dikey sürükleyerek yakınlaş/uzaklaş</div>
                 </div>
             </div>
         </div>
