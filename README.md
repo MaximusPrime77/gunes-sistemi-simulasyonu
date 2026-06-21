@@ -7,58 +7,53 @@
 **[TR]**
 Bu proje, modern web teknolojileri (Three.js & WebGL) kullanılarak geliştirilmiş, etkileşimli ve ultra gerçekçi bir Güneş Sistemi simülasyonudur. Kullanıcılara hem görsel bir şölen sunmayı hem de ansiklopedik bilgilerle eğitmeyi amaçlar. Standart bir modellemenin ötesinde; özel shader'lar, atmosferik ışık kırılımları ve dinamik yörünge mekanikleri içerir. 
 
-Ayrıca **Lively Wallpaper** desteği sayesinde bu simülasyonu Windows masaüstünüzde etkileşimli, canlı bir 3D duvar kağıdı olarak en üst düzey performansla kullanabilirsiniz!
+Ayrıca **Lively Wallpaper** desteği sayesinde bu simülasyonu Windows masaüstünüzde etkileşimli, canlı bir 3D duvar kağıdı olarak kullanabilirsiniz.
 
 **[EN]**
 This project is an interactive and ultra-realistic Solar System simulation developed using modern web technologies (Three.js & WebGL). It aims to provide both a visual feast and educational value with encyclopedic data. Beyond standard modeling, it features custom shaders, atmospheric refractions, and dynamic orbital mechanics.
 
-Thanks to **Lively Wallpaper** support, you can also use this simulation as an interactive, live 3D desktop wallpaper on Windows with ultimate performance!
+Thanks to **Lively Wallpaper** support, you can also use this simulation as an interactive, live 3D desktop wallpaper on Windows.
 
 ---
 
 ## 🔗 Canlı Demo / Live Demo
 
-Proyeyi aşağıdaki bağlantıdan canlı olarak inceleyebilirsiniz:
+Projeyi aşağıdaki bağlantıdan canlı olarak inceleyebilirsiniz:
 
 👉 **[Simülasyonu Başlat / Start Simulation](https://maximusprime77.github.io/gunes-sistemi-simulasyonu/)**
 
 ---
 
-## 🖥️ Lively Wallpaper ile Profesyonel Duvar Kağıdı Kullanımı
+## 🖥️ Lively Wallpaper ile Duvar Kağıdı Kullanımı
 
-Bu proje, Lively Wallpaper üzerinde sıfır çakışma ve maksimum performansla çalışacak şekilde özel olarak tasarlanmıştır.
+Bu proje, Lively Wallpaper ile tam entegrasyon sunar ve masaüstü deneyiminizi kesintiye uğratmadan arka planda çalışır.
 
-### 1. Kolay Kurulum
+### Kurulum ve Entegrasyon
 1. **Lively Wallpaper** uygulamasını açın.
 2. Proje dizinindeki `index.html` dosyasını sürükleyip Lively Wallpaper kütüphanesine bırakın.
 
-### 2. Doğrudan Lively Üzerinden Özelleştirme (Lively Properties)
-Projede yer alan `LivelyProperties.json` entegrasyonu sayesinde, duvar kağıdınıza sağ tıklayıp **"Özelleştir" (Customize)** seçeneğini kullanarak şu ayarları doğrudan Lively arayüzünden değiştirebilirsiniz:
-* **Masaüstü Etkileşimini Kilitle**: Masaüstü simgelerini taşırken veya seçim yaparken arka planın dönmesini engeller.
-* **Arayüzü Göster**: Sol üstteki ayarlar düğmesini ve kontrol panelini tamamen gizleyerek temiz, minimalist bir uzay manzarası sunar.
-* **Zamanı Durdur**: Gezegenlerin yörünge hareketlerini duraklatır.
-* **Simülasyon Hızı**: Gezegenlerin dönüş hız çarpanını ayarlar (0x - 3x).
-* **Gerçekçi Gezegen Ölçeği**: Gezegen boyutlarını ve yörünge mesafelerini gerçekçi bilimsel oranlara dönüştürür.
-* **Yörünge Çizgilerini Göster**: Gezegenlerin yörünge izlerini açar/kapatır.
-* **Kontrol Paneli Opaklığı**: Panel şeffaflık yüzdesini ayarlar.
-
-### 3. Akıllı Etkileşim ve Güvenlik Sistemi (On-Demand Activation)
-* **Sıfır Masaüstü Çakışması**: Masaüstünde dosya sürüklerken veya başka pencereler arasında geçiş yaparken fare simülasyon alanına girse dahi arka plan kesinlikle dönmez. Çünkü sistem, tıklamanın simülasyon üzerinde başlayıp başlamadığını denetleyen `pointerenter` güvenlik mekanizmasına sahiptir.
-* **İstek Üzerine Kontrol**: Kilit açıkken (`Etkileşim: Açık 🔓`), evreni döndürme kontrolleri sadece farenin sol tuşuna bastığınız anda anlık olarak etkinleştirilir. Sol tıkı bıraktığınız veya fareyi ekrandan çıkardığınız anda kontroller tamamen kapatılarak işletim sistemiyle çakışmalar önlenir.
-* **Boşluğa Tıklayarak Panelleri Kapatma**: Bilgi kartları veya kontrol merkezi açıkken ekrandaki boş uzay boşluğuna sol tıklayarak tüm panelleri pratik bir şekilde kapatabilirsiniz (bu özellik kilit aktifken de çalışır).
+### Kişiselleştirme Seçenekleri (Lively Properties)
+Duvar kağıdınıza sağ tıklayıp **"Özelleştir" (Customize)** seçeneğini kullanarak şu özellikleri doğrudan Lively arayüzünden ayarlayabilirsiniz:
+* **Masaüstü Etkileşimi**: Masaüstünde çalışırken arka planın hareket edip etmeyeceğini kilitler veya açar.
+* **Arayüz Görünümü**: Kontrol panelini tamamen gizleyerek temiz bir uzay manzarası sunar.
+* **Zaman Kontrolü**: Gezegenlerin yörünge hareketlerini duraklatır veya devam ettirir.
+* **Hız Ayarı**: Simülasyonun zaman akış hızını (0x - 3x) ayarlar.
+* **Ölçeklendirme**: Gezegen boyutlarını ve yörünge mesafelerini gerçekçi bilimsel oranlara getirir.
+* **Yörünge Çizgileri**: Gezegenlerin yörünge yollarını gösterir veya gizler.
+* **Panel Şeffaflığı**: Arayüz panelinin opaklık düzeyini belirler.
 
 ---
 
 ## 🚀 Özellikler / Features
 
-### 🎨 Görsel & Teknik Detaylar (Visual & Technical)
 * **Three.js & WebGL Altyapısı:** Yüksek performanslı 3D render motoru.
-* **Türkçe Karakter Desteği:** Arayüzdeki tüm metinler, başlıklar ve bilgi kartları Türkçe karakterleri (Ş, I, Ğ vb.) kusursuz destekleyen modern **Outfit** font ailesi ile yenilenmiştir.
-* **Özel Shader Yazılımları (GLSL):**
-    * 🌞 **Güneş:** Hareketli yüzey ve korona (glow) efekti için özel Vertex/Fragment shader'lar.
-    * 🌍 **Atmosfer:** Dünya için gerçekçi atmosferik saçılma ve parlama efektleri.
-* **Post-Processing:** `UnrealBloomPass` kullanılarak sinematik parlama ve neon efektleri.
-* **Yüksek Çözünürlüklü Dokular:** Gezegen yüzeyleri, bulut katmanları ve yıldız haritası.
+* **Modern Tipografi:** Türkçe karakter uyumlu geometrik **Outfit** font ailesi ile temiz ve estetik görünüm.
+* **Özel Shader Tasarımları (GLSL):**
+    * 🌞 **Güneş:** Dinamik hareketli yüzey ve korona (glow) efektleri.
+    * 🌍 **Atmosfer:** Dünya için gerçekçi atmosferik ışık saçılması.
+* **Post-Processing:** UnrealBloomPass ile sinematik parlama ve neon efektleri.
+* **İnteraktif Bilgi Sistemi:** Gezegenlerin üzerine tıklayarak ansiklopedik bilgilere erişim ve Dünya ile kıyaslama hologramı.
+* **Kolay Arayüz Kapatma**: Bilgi kartları veya kontrol merkezi açıkken ekranda boşluğa tıklayarak panelleri kapatabilme özelliği.
 
 ---
 
@@ -70,8 +65,8 @@ Projede yer alan `LivelyProperties.json` entegrasyonu sayesinde, duvar kağıdı
 | **Döndür / Rotate** | Sol Tık + Sürükle (Left Click + Drag) *(Kilit açıkken / When Unlocked)* |
 | **Yakınlaş / Zoom** | Kontrol Panelindeki **YAKINLAŞTIRMA** Kaydırıcısı (Slider) |
 | **Bilgi Al / Info** | Gezegene Sol Tık (Left Click on Planet) |
-| **Odaklan / Focus** | Gezegene Orta Tık / Tekerlek Tıklaması (Middle Click on Planet) |
-| **Panelleri Kapat / Close Panels** | Boş Uzay Boşluğuna Sol Tık (Left Click on Empty Space) |
+| **Odaklan / Focus** | Gezegene Orta Tık (Middle Click on Planet) |
+| **Panelleri Kapat / Close Panels** | Boşluğa Sol Tık (Left Click on Empty Space) |
 
 ---
 
