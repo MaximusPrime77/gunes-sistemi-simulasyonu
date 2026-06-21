@@ -111,6 +111,15 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
 
     window.addEventListener('pointerdown', (event) => {
         if (event.target.closest('#info-panel') || event.target.closest('#ui-container')) return;
+
+        // Ctrl tuşu basılıyken sol tıklanırsa döndürme başlar, gezegen seçimi engellenir
+        if (event.button === 0 && event.ctrlKey) {
+            controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
+            return;
+        } else if (event.button === 0) {
+            controls.mouseButtons.LEFT = THREE.MOUSE.NONE;
+        }
+
         mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
         raycaster.setFromCamera(mouse, camera);
@@ -232,6 +241,9 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
 
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Shift') isShiftDown = true;
+        if (e.key === 'Control') {
+            controls.mouseButtons.LEFT = THREE.MOUSE.ROTATE;
+        }
 
         const keyZoomScale = 0.90;
         if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp' || e.key === '+') {
@@ -245,6 +257,9 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
 
     window.addEventListener('keyup', (e) => {
         if (e.key === 'Shift') isShiftDown = false;
+        if (e.key === 'Control') {
+            controls.mouseButtons.LEFT = THREE.MOUSE.NONE;
+        }
     });
 
     // Alternatif 4: Shift + Sol Tık ve Fareyi Sürükleyerek Zoom

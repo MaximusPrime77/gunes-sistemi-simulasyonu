@@ -37,7 +37,7 @@ export function initScene() {
     controls.mouseButtons = {
         LEFT: THREE.MOUSE.NONE,
         MIDDLE: THREE.MOUSE.DOLLY,
-        RIGHT: THREE.MOUSE.ROTATE
+        RIGHT: THREE.MOUSE.NONE
     };
 
     // Sağ tık menüsünün açılmasını engelleriz (böylece döndürme rahatça yapılır)
