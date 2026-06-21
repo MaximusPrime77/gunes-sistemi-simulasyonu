@@ -2,6 +2,7 @@
 import * as THREE from 'three';
 
 const textureLoader = new THREE.TextureLoader();
+textureLoader.setCrossOrigin('');
 export const loadTextureSafe = (path) => textureLoader.load(path);
 
 export function createOrbit(scene, radius) {

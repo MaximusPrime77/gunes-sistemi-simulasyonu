@@ -266,6 +266,7 @@ controls.minDistance = 1.5;
 controls.screenSpacePanning = true;
 
 const textureLoader = new THREE.TextureLoader();
+textureLoader.setCrossOrigin('');
 const loadTextureSafe = (path) => textureLoader.load(path);
 
 // ==========================================
