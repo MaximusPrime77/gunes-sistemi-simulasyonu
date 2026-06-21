@@ -354,7 +354,7 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                     MIDDLE: THREE.MOUSE.NONE,
                     RIGHT: THREE.MOUSE.NONE
                 };
-                controls.enableZoom = false;
+                controls.enableZoom = true;
                 lockBtn.innerHTML = "Etkileşim: Açık 🔓";
                 lockBtn.classList.add('unlocked');
                 syncOrbitControlsState();
