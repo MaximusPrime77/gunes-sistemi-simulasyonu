@@ -46,31 +46,9 @@ createDwarfPlanet(scene, planets, { name: "Plüton", size: 0.9, texture: "pluto.
 createDwarfPlanet(scene, planets, { name: "Eris", size: 0.9, texture: "eris.jpg", color: 0xffffff, distance: 170, speed: 0.001, tiltX: -0.2, tiltZ: 0.2 });
 
 // ==========================================
-// 5. HUD ELEMENTLERİ
-// ==========================================
-const hudXEl = document.getElementById('hud-x');
-const hudYEl = document.getElementById('hud-y');
-const hudZEl = document.getElementById('hud-z');
-const hudElapsedEl = document.getElementById('hud-elapsed');
-const hudScaleInfoEl = document.getElementById('hud-scale-info');
-const hudTargetNameEl = document.getElementById('target-name');
-
-function updateHudTarget(name) {
-    if (hudTargetNameEl) hudTargetNameEl.textContent = name;
-}
-
-function formatTime(ms) {
-    const totalSeconds = Math.floor(ms / 1000);
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
-
-// ==========================================
 // 6. UI VE ETKİLEŞİM
 // ==========================================
-const showInfoFn = setupUI(scene, camera, controls, planets, sun, asteroidMesh, state, updateHudTarget);
+const showInfoFn = setupUI(scene, camera, controls, planets, sun, asteroidMesh, state);
 
 // ==========================================
 // 7. ANİMASYON DÖNGÜSÜ
@@ -116,12 +94,7 @@ function animate() {
         });
     }
 
-    // HUD Güncelleme
-    if (hudXEl) hudXEl.textContent = `X: ${camera.position.x.toFixed(1)}`;
-    if (hudYEl) hudYEl.textContent = `Y: ${camera.position.y.toFixed(1)}`;
-    if (hudZEl) hudZEl.textContent = `Z: ${camera.position.z.toFixed(1)}`;
-    if (hudElapsedEl) hudElapsedEl.textContent = `⏱ ${formatTime(Date.now() - state.simulationStartTime)}`;
-    if (hudScaleInfoEl) hudScaleInfoEl.textContent = `⚡ ${state.timeScale}x`;
+
 
     if (state.focusedPlanet && state.comparisonMesh) {
         const targetPos = new THREE.Vector3();

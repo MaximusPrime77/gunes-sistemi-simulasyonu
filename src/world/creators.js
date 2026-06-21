@@ -61,15 +61,15 @@ export function createStarfieldOverlay(scene) {
 }
 
 export function createAsteroidBelt(scene) {
-    const count = 1500; // 4000 -> 1500 (seyrekleştirildi)
-    const geo = new THREE.DodecahedronGeometry(0.15, 0); // 0.2 -> 0.15 (daha küçük)
+    const count = 450; // 1500 -> 450 (gerçeğe uygun olarak seyrekleştirildi)
+    const geo = new THREE.DodecahedronGeometry(0.15, 0); // 0.15 boyutu ideal
     const mat = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.9, flatShading: true });
     const asteroidMesh = new THREE.InstancedMesh(geo, mat, count); const dummy = new THREE.Object3D();
     for (let i = 0; i < count; i++) {
-        const angle = Math.random() * Math.PI * 2; const r = 38 + Math.random() * 6; const y = (Math.random() - 0.5) * 0.1; // Daha ince kuşak
+        const angle = Math.random() * Math.PI * 2; const r = 38 + Math.random() * 6; const y = (Math.random() - 0.5) * 0.1;
         dummy.position.set(Math.cos(angle) * r, y, Math.sin(angle) * r);
         dummy.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
-        const s = 0.3 + Math.random() * 0.4; dummy.scale.set(s, s, s); dummy.updateMatrix(); // Daha küçük asteroidler
+        const s = 0.3 + Math.random() * 0.4; dummy.scale.set(s, s, s); dummy.updateMatrix();
         asteroidMesh.setMatrixAt(i, dummy.matrix);
     }
     scene.add(asteroidMesh);

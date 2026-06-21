@@ -1,0 +1,33 @@
+{
+  "name": "gunes-sistemi-simulasyonu",
+  "version": "1.0.0",
+  "description": "Güneş Sistemi Simülasyonu",
+  "main": "main-electron.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "vite build",
+    "dist": "npm run build && electron-builder"
+  },
+  "keywords": [],
+  "author": "Barbaros",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "vite": "^5.2.11"
+  },
+  "build": {
+    "appId": "com.barbaros.gunessistemi",
+    "productName": "Gunes Sistemi",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "release"
+    }
+  }
+}

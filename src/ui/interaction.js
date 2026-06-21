@@ -2,11 +2,15 @@
 import * as THREE from 'three';
 import { planetInfo } from '../data/database.js';
 
-export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, state, updateHudTarget) {
+export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, state) {
     const pauseBtn = document.getElementById('pauseBtn');
 
     const speedSlider = document.getElementById('speedSlider');
     const speedValueEl = document.getElementById('speedValue');
+    const opacitySlider = document.getElementById('opacitySlider');
+    const opacityValueEl = document.getElementById('opacityValue');
+    const zoomSlider = document.getElementById('zoomSlider');
+    const zoomValueEl = document.getElementById('zoomValue');
     const infoPanel = document.getElementById('info-panel');
     const closeBtn = document.getElementById('close-btn');
     const planetNameEl = document.getElementById('planet-name');
@@ -62,8 +66,7 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
             const compareBtn = document.getElementById('compareBtn');
             if (compareBtn) compareBtn.onclick = toggleComparison;
 
-            // HUD hedef güncelleme
-            if (updateHudTarget) updateHudTarget(`🎯 ${name.toUpperCase()}`);
+
         }
     }
 
@@ -80,11 +83,29 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
             if (speedValueEl) speedValueEl.innerText = state.timeScale + "x";
         };
     }
+
+    if (opacitySlider) {
+        const savedOpacity = localStorage.getItem('panelOpacity');
+        if (savedOpacity) {
+            opacitySlider.value = savedOpacity;
+            if (opacityValueEl) opacityValueEl.innerText = savedOpacity + "%";
+            document.documentElement.style.setProperty('--panel-opacity', (parseFloat(savedOpacity) / 100).toString());
+        } else {
+            // Varsayılan değer
+            document.documentElement.style.setProperty('--panel-opacity', '0.85');
+        }
+
+        opacitySlider.oninput = function () {
+            const val = this.value;
+            if (opacityValueEl) opacityValueEl.innerText = val + "%";
+            document.documentElement.style.setProperty('--panel-opacity', (parseFloat(val) / 100).toString());
+            localStorage.setItem('panelOpacity', val);
+        };
+    }
     if (closeBtn) {
         closeBtn.onclick = function () {
             infoPanel.classList.remove('active');
             if (state.comparisonMesh) { scene.remove(state.comparisonMesh); state.comparisonMesh = null; }
-            if (updateHudTarget) updateHudTarget("— SERBEST UÇUŞ —");
         };
     }
 
@@ -100,7 +121,6 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                 state.focusedPlanet = null;
                 infoPanel.classList.remove('active');
                 if (state.comparisonMesh) { scene.remove(state.comparisonMesh); state.comparisonMesh = null; }
-                if (updateHudTarget) updateHudTarget("— SERBEST UÇUŞ —");
             }
             return;
         }
@@ -139,6 +159,122 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
             }
         }
     });
+
+    // ==========================================
+    // KONTROL PANELİ TOGGLE (AÇMA / KAPAMA)
+    // ==========================================
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
+    const uiContainer = document.getElementById('ui-container');
+
+    if (menuToggleBtn && uiContainer) {
+        menuToggleBtn.onclick = function (e) {
+            e.stopPropagation();
+            const isActive = uiContainer.classList.toggle('active');
+            menuToggleBtn.classList.toggle('active');
+            menuToggleBtn.innerHTML = isActive ? '✕' : '⚙';
+        };
+    }
+
+    // ==========================================
+    // MANUEL YAKINLAŞMA/UZAKLAŞMA (ZOOM) ÇÖZÜMLERİ
+    // ==========================================
+    
+    // Alternatif 1: Kontrol Panelindeki YAKINLAŞMA Sliderı
+    if (zoomSlider) {
+        const min = controls.minDistance || 1.5;
+        const max = 350; // Güneş sistemi için ideal maksimum uzaklık limiti
+
+        // Slider kaydırıldığında zoom düzeyini ayarla
+        zoomSlider.oninput = function () {
+            const pct = parseFloat(this.value) / 100;
+            const newDistance = min + (max - min) * (1 - pct); // 100% yakınken mesafe = min, 0% uzakken mesafe = max
+            
+            const direction = new THREE.Vector3();
+            camera.getWorldDirection(direction);
+            
+            camera.position.copy(controls.target).sub(direction.setLength(newDistance));
+            controls.update();
+            
+            if (zoomValueEl) zoomValueEl.innerText = this.value + "%";
+        };
+
+        // Diğer yöntemlerle (tekerlek, orta tık) zoom yapıldığında sliderı senkronize et
+        controls.addEventListener('change', () => {
+            const distance = camera.position.distanceTo(controls.target);
+            const normalized = Math.max(0, Math.min(1, (distance - min) / (max - min)));
+            const pct = Math.round((1 - normalized) * 100);
+            zoomSlider.value = pct;
+            if (zoomValueEl) zoomValueEl.innerText = pct + "%";
+        });
+    }
+
+    // Alternatif 2: Fare Tekerleği (Wheel) ile Zoom
+    window.addEventListener('wheel', (event) => {
+        const zoomScale = 0.90;
+        if (event.deltaY < 0) {
+            controls.dollyIn(zoomScale);
+        } else {
+            controls.dollyOut(zoomScale);
+        }
+        controls.update();
+    }, { passive: true });
+
+    // Alternatif 3: Klavye Tuşları ile Zoom (W / S / Up / Down / + / -)
+    let isShiftDown = false;
+    let lastMouseY = 0;
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Shift') isShiftDown = true;
+
+        const keyZoomScale = 0.90;
+        if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp' || e.key === '+') {
+            controls.dollyIn(keyZoomScale);
+            controls.update();
+        } else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown' || e.key === '-') {
+            controls.dollyOut(keyZoomScale);
+            controls.update();
+        }
+    });
+
+    window.addEventListener('keyup', (e) => {
+        if (e.key === 'Shift') isShiftDown = false;
+    });
+
+    // Alternatif 4: Shift + Sol Tık ve Fareyi Sürükleyerek Zoom
+    window.addEventListener('pointerdown', (e) => {
+        lastMouseY = e.clientY;
+    });
+
+    window.addEventListener('pointermove', (event) => {
+        if (isShiftDown && event.buttons === 1) { // Shift basılı ve Sol Tık ile sürükleme
+            const deltaY = event.clientY - lastMouseY;
+            const dragZoomScale = 0.95;
+            if (deltaY < 0) {
+                // Yukarı sürükleme -> Yakınlaş
+                controls.dollyIn(dragZoomScale);
+            } else if (deltaY > 0) {
+                // Aşağı sürükleme -> Uzaklaş
+                controls.dollyOut(dragZoomScale);
+            }
+            controls.update();
+        }
+        lastMouseY = event.clientY;
+    });
+
+    // ==========================================
+    // FOCUS KAYBINDA SÜRÜKLEME KİLİDİNİ ÇÖZ (lost focus drag lock)
+    // ==========================================
+    const clearDragLock = () => {
+        const upEvent = new PointerEvent('pointerup', { bubbles: true, cancelable: true });
+        window.dispatchEvent(upEvent);
+        document.dispatchEvent(upEvent);
+        if (controls.domElement) controls.domElement.dispatchEvent(upEvent);
+        isShiftDown = false;
+    };
+
+    window.addEventListener('blur', clearDragLock);
+    window.addEventListener('focusout', clearDragLock);
+    document.addEventListener('visibilitychange', clearDragLock);
 
     // showInfo fonksiyonunu dışarı aktar (sinematik tur için)
     return showInfo;

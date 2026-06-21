@@ -8,14 +8,14 @@ export function createOrbit(scene, radius) {
     const points = []; for (let i = 0; i <= 360; i++) points.push(new THREE.Vector3(Math.cos(i / 360 * Math.PI * 2) * radius, 0, Math.sin(i / 360 * Math.PI * 2) * radius));
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const orbit = new THREE.LineLoop(geometry, new THREE.LineBasicMaterial({ color: 0x44aaff, transparent: true, opacity: 0.12 }));
-    scene.add(orbit); return orbit;
+    return orbit;
 }
 
 export function createDwarfOrbit(scene, radius, tiltX = 0, tiltZ = 0) {
     const points = []; for (let i = 0; i <= 360; i++) points.push(new THREE.Vector3(Math.cos(i / 360 * Math.PI * 2) * radius, 0, Math.sin(i / 360 * Math.PI * 2) * radius));
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const orbit = new THREE.LineLoop(geometry, new THREE.LineBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.1 }));
-    orbit.rotation.x = tiltX; orbit.rotation.z = tiltZ; scene.add(orbit); return orbit;
+    orbit.rotation.x = tiltX; orbit.rotation.z = tiltZ; return orbit;
 }
 
 export function createLabel(text) {
