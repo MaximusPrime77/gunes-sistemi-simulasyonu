@@ -271,22 +271,14 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
     };
 
     if (controls.domElement) {
-        // Fare canvas'ın üzerine girdiğinde güvenlik kontrolü yap
-        controls.domElement.addEventListener('pointerenter', (event) => {
-            // Eğer fare sol tuşu basılı olarak içeri girdiyse (dışarıda başlayan sürükleme/dosya taşıma)
-            // OrbitControls'ü devre dışı bırak. Serbest dolaşıyorsa kilit durumuna göre etkinleştir.
-            if (event.buttons === 1) {
-                controls.enabled = false;
-            } else {
-                syncOrbitControlsState();
-            }
-        });
-
-        // Fare canvas üzerinde hareket ederken tuş durumunu sürekli denetle
+        // Fare canvas üzerinde hareket ederken güvenlik kontrolü yap
         controls.domElement.addEventListener('pointermove', (event) => {
             if (event.buttons === 0) {
-                // Fare serbest bırakıldıysa controls kilit durumuna geri döner
+                // Fare serbest dolaşırken kilit açık ise kontrolleri etkin tut
                 syncOrbitControlsState();
+            } else if (event.buttons === 1 && !controls.enabled) {
+                // Dışarıdan sol tık basılı olarak girildiyse (dosya sürükleme) controls kapalı kalır
+                controls.enabled = false;
             }
         });
 
@@ -297,6 +289,24 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
 
         controls.domElement.addEventListener('pointerleave', deactivateControls);
         controls.domElement.addEventListener('pointerout', deactivateControls);
+
+        // Kararlı Manuel Tekerlek (Wheel) Zoom Entegrasyonu
+        controls.domElement.addEventListener('wheel', (event) => {
+            if (state.isLocked) return;
+            event.preventDefault();
+            
+            if (zoomSlider) {
+                let currentValue = parseFloat(zoomSlider.value);
+                const step = 5; // Pürüzsüz zoom adımı
+                if (event.deltaY < 0) {
+                    currentValue = Math.min(100, currentValue + step);
+                } else {
+                    currentValue = Math.max(0, currentValue - step);
+                }
+                zoomSlider.value = currentValue;
+                zoomSlider.oninput(); // Slider olayını manuel tetikle
+            }
+        }, { passive: false });
     }
 
     // Pencere veya sekme odağını kaybettiğinde de güvenlik için sürüklemeyi sıfırla
@@ -352,7 +362,7 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                 controls.mouseButtons = {
                     LEFT: THREE.MOUSE.ROTATE,
                     MIDDLE: THREE.MOUSE.NONE,
-                    RIGHT: THREE.MOUSE.NONE
+                    RIGHT: THREE.MOUSE.DOLLY
                 };
                 controls.enableZoom = true;
                 lockBtn.innerHTML = "Etkileşim: Açık 🔓";
