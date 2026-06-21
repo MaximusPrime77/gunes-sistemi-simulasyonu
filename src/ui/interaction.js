@@ -109,12 +109,14 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
         };
     }
 
-    window.addEventListener('pointerdown', (event) => {
+    const onPointerDown = (event) => {
         if (state.isLocked) return; // Kilitliyken etkileşimi tamamen yoksay
-        if (event.target.closest('#info-panel') || event.target.closest('#ui-container')) return;
 
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        // Raycasting koordinatları canvas'a (controls.domElement) göre hesaplanmalıdır
+        const rect = controls.domElement.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(scene.children, true);
 
@@ -140,7 +142,7 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                     showInfo(name);
                 }
 
-                if (event.button === 1) { // ORTA TUŞ
+                if (event.button === 1) { // ORTA TUŞ (Tekerlek Tıklaması)
                     state.focusedPlanet = obj;
                     const targetPos = new THREE.Vector3();
                     state.focusedPlanet.getWorldPosition(targetPos);
@@ -160,7 +162,15 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                 break;
             }
         }
-    });
+    };
+
+    if (controls.domElement) {
+        controls.domElement.addEventListener('pointerdown', onPointerDown);
+        // Orta tuş tıklamasını bazı tarayıcılarda auxclick olarak yakalamak en güvenli yoldur
+        controls.domElement.addEventListener('auxclick', (e) => {
+            if (e.button === 1) onPointerDown(e);
+        });
+    }
 
     // ==========================================
     // KONTROL PANELİ TOGGLE (AÇMA / KAPAMA)
@@ -310,10 +320,10 @@ export function setupUI(scene, camera, controls, planets, sun, asteroidMesh, sta
                 lockBtn.classList.remove('unlocked');
                 clearDragLock();
             } else {
-                // AÇIK MOD: Sol tık döndürür, tekerlek/orta tık zoom yapar
+                // AÇIK MOD: Sol tık döndürür, tekerlek zoom yapar, orta tık odaklanma için serbest kalır
                 controls.mouseButtons = {
                     LEFT: THREE.MOUSE.ROTATE,
-                    MIDDLE: THREE.MOUSE.DOLLY,
+                    MIDDLE: THREE.MOUSE.NONE, // Orta tık sürüklemesini kapattık, sadece tıklama odaklaması çalışacak
                     RIGHT: THREE.MOUSE.NONE // Sağ tık menüsü çakışmasın diye pasif
                 };
                 controls.enableZoom = true;

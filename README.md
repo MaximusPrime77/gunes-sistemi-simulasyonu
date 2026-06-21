@@ -31,11 +31,15 @@ Bu projeyi bilgisayarınızda hareketli 3D duvar kağıdı yapmak çok kolaydır
 
 1. **Lively Wallpaper** uygulamasını açın.
 2. Proje dizinindeki `index.html` dosyasını sürükleyip Lively Wallpaper kütüphanesine bırakın.
-3. Masaüstü modunda Windows/Lively'nin fare tekerleği (`wheel`) ve klavye girdilerini engellemesi sorununu aşmak için özel olarak geliştirdiğimiz **Alternatif Zoom** ve **Arayüz Kontrollerini** kullanabilirsiniz:
-   - **Yakınlaştırma Barı (Slider)**: Sol üstteki ayarlar ikonuna (⚙) tıklayarak açılan Kontrol Merkezi içerisindeki **YAKINLAŞTIRMA** çubuğunu sürükleyerek pürüzsüzce yakınlaşıp uzaklaşabilirsiniz.
-   - **Klavye Kontrolü**: Masaüstüne boş bir yere tıkladıktan sonra klavyeden **`W` / `S`**, **`Yön Tuşları`** veya **`+` / `-`** tuşlarına basarak zoom yapabilirsiniz.
-   - **Shift + Sürükleme**: Klavyeden **`Shift`** tuşuna basılı tutarken fareyi sol tık ile **yukarı/aşağı sürükleyerek** dikey yakınlaşma/uzaklaşma yapabilirsiniz.
-   - **Şeffaflık Ayarı**: Kontrol panelindeki **ŞEFFAFLIK** sürükleme çubuğu ile panelleri istediğiniz opaklık düzeyinde (cam efekti) ayarlayabilirsiniz. Bu tercihiniz otomatik olarak kaydedilir (`localStorage`).
+3. Masaüstü modunda Windows/Lively'nin fare tekerleği (`wheel`) ve klavye girdilerini engellemesi sorununu ve masaüstü klasör sürükleme çakışmalarını sıfırlamak için özel olarak geliştirdiğimiz **Etkileşim Kilidi (🔒 / 🔓)** sistemini kullanabilirsiniz:
+   - **Etkileşim Kilidi (Kilitli 🔒 - Varsayılan)**: Simülasyon açıldığında fare hareketleri, döndürme ve yakınlaştırma tamamen kilitlidir. Masaüstünüzde klasör taşırken, dosya sürüklerken veya seçim yaparken arka plan asla hareket etmez. %100 sorunsuz ve çakışmasız masaüstü deneyimi sunar.
+   - **Etkileşime Açık Mod (Açık 🔓)**: Sol üstteki ayarlar ikonuna (⚙) tıklayarak Kontrol Merkezini açın ve en üstteki **"Etkileşim: Kilitli 🔒"** butonuna basarak kilidi açın.
+   - **Kilit Açıkken Kontroller**:
+     - **Döndürme**: Fare sol tıkı ile sürükleyerek evreni serbestçe döndürebilirsiniz.
+     - **Yakınlaştırma Barı (Slider)**: Kontrol panelindeki **YAKINLAŞTIRMA** çubuğunu sürükleyerek pürüzsüzce yakınlaşıp uzaklaşabilirsiniz.
+     - **Fare Tekerleği & Orta Tuş Sürükleme**: Fare tekerleğini scroll yaparak veya tekerlek tuşuna (orta tık) basılı tutup fareyi dikey sürükleyerek zoom yapabilirsiniz.
+     - **Gezegen Seçimi & Odaklanma**: Gezegenlere sol tıklayarak bilgi alabilir, fare tekerleğine basarak (orta tık) gezegene doğrudan odaklanabilirsiniz.
+     - **Şeffaflık Ayarı**: Kontrol panelindeki **ŞEFFAFLIK** barı ile panel opaklığını istediğiniz düzeyde ayarlayabilirsiniz. Bu tercihiniz kaydedilir (`localStorage`).
 
 ---
 
@@ -91,12 +95,13 @@ Projeyi bağımsız bir `.exe` masaüstü uygulaması olarak derlemek isterseniz
 
 ## 🎮 Kontroller / Controls
 
-| Eylem / Action | Kontrol / Input |
+| Eylem / Action | Kontrol / Input (Kilit Açıkken / When Unlocked) |
 | :--- | :--- |
-| **Döndür / Rotate** | Sağ Tık + Sürükle (Right Click + Drag) |
-| **Yakınlaş / Zoom** | Sürükle (Zoom Slider) / Tekerlek / W-S Tuşları / Shift + Sürükle |
+| **Etkileşim Kilidi / Interaction Lock** | Kontrol Panelindeki Kilit Butonu (🔒 / 🔓 Button on Panel) |
+| **Döndür / Rotate** | Sol Tık + Sürükle (Left Click + Drag) |
+| **Yakınlaş / Zoom** | Kaydırıcı (Zoom Slider) / Tekerlek (Scroll) / W-S Tuşları / Orta Tuş Sürükleme |
 | **Bilgi Al / Info** | Gezegene Sol Tık (Left Click on Planet) |
-| **Odaklan / Focus** | Gezegene Orta Tık (Middle Click on Planet) |
+| **Odaklan / Focus** | Gezegene Orta Tık / Tekerlek Tıklaması (Middle Click on Planet) |
 
 ---
 
