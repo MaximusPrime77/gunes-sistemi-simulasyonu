@@ -93,9 +93,8 @@ Projeyi bağımsız bir `.exe` masaüstü uygulaması olarak derlemek isterseniz
 
 | Eylem / Action | Kontrol / Input |
 | :--- | :--- |
-| **Döndür / Rotate** | Sol Tık + Sürükle (Left Click + Drag) |
+| **Döndür / Rotate** | Sağ Tık + Sürükle (Right Click + Drag) |
 | **Yakınlaş / Zoom** | Sürükle (Zoom Slider) / Tekerlek / W-S Tuşları / Shift + Sürükle |
-| **Kaydır / Pan** | Sağ Tık + Sürükle (Right Click + Drag) |
 | **Bilgi Al / Info** | Gezegene Sol Tık (Left Click on Planet) |
 | **Odaklan / Focus** | Gezegene Orta Tık (Middle Click on Planet) |
 

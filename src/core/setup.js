@@ -32,6 +32,17 @@ export function initScene() {
     controls.minDistance = 1.5;
     controls.screenSpacePanning = true;
 
+    // Masaüstünde sol tıkla klasör sürüklerken veya seçim kutusu çizerken evrenin dönmesini engellemek için:
+    // Sol tık sürüklemeyi kapatıp, döndürme (rotate) işlevini Sağ Tık'a atıyoruz.
+    controls.mouseButtons = {
+        LEFT: THREE.MOUSE.NONE,
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.ROTATE
+    };
+
+    // Sağ tık menüsünün açılmasını engelleriz (böylece döndürme rahatça yapılır)
+    window.addEventListener('contextmenu', e => e.preventDefault());
+
     // ==========================================
     // 4. EFEKTLER
     // ==========================================
