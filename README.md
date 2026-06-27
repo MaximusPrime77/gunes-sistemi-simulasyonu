@@ -1,99 +1,92 @@
-# 🌌 GÜNEŞ SİSTEMİ SİMÜLASYONU (Solar System Simulation)
+# 🌌 SOLAR SYSTEM SIMULATION 3D
 
-<img width="1919" height="1079" alt="Ekran görüntüsü 2025-12-07 171730" src="https://github.com/user-attachments/assets/682f2384-c7e7-4599-b173-1c597ee88dc2" />
+<img src="./preview-main.png" alt="Solar System Simulation Preview" width="100%" />
 
-## 🌍 Proje Hakkında / About The Project
+An interactive, ultra-realistic 3D Solar System simulation built with modern web technology (**Three.js & WebGL**). It offers a stunning visual experience along with educational, encyclopedic planetary data, custom GLSL shaders, atmospheric light refraction, dynamic orbit mechanics, and dual-language (English/Turkish) support.
 
-**[TR]**
-Bu proje, modern web teknolojileri (Three.js & WebGL) kullanılarak geliştirilmiş, etkileşimli ve ultra gerçekçi bir Güneş Sistemi simülasyonudur. Kullanıcılara hem görsel bir şölen sunmayı hem de ansiklopedik bilgilerle eğitmeyi amaçlar. Standart bir modellemenin ötesinde; özel shader'lar, atmosferik ışık kırılımları ve dinamik yörünge mekanikleri içerir. 
-
-Ayrıca **Lively Wallpaper** desteği sayesinde bu simülasyonu Windows masaüstünüzde etkileşimli, canlı bir 3D duvar kağıdı olarak kullanabilirsiniz.
-
-**[EN]**
-This project is an interactive and ultra-realistic Solar System simulation developed using modern web technologies (Three.js & WebGL). It aims to provide both a visual feast and educational value with encyclopedic data. Beyond standard modeling, it features custom shaders, atmospheric refractions, and dynamic orbital mechanics.
-
-Thanks to **Lively Wallpaper** support, you can also use this simulation as an interactive, live 3D desktop wallpaper on Windows.
+Additionally, with **Lively Wallpaper** integration, you can run this simulation live as your interactive 3D Windows desktop background.
 
 ---
 
-## 🔗 Canlı Demo / Live Demo
+## 🔗 Live Demo & Downloads
 
-Projeyi aşağıdaki bağlantıdan canlı olarak inceleyebilirsiniz:
-
-👉 **[Simülasyonu Başlat / Start Simulation](https://maximusprime77.github.io/gunes-sistemi-simulasyonu/)**
-
----
-
-## 🖥️ Lively Wallpaper ile Duvar Kağıdı Kullanımı
-
-Bu proje, **Lively Wallpaper** ile tam entegrasyon sunar ve masaüstü deneyiminizi kesintiye uğratmadan canlı bir 3D uzay duvar kağıdı olarak arka planda çalışır.
-
-<img src="./lively-wallpaper-preview.png" alt="Lively Wallpaper Önizleme" width="100%" />
-
-### Kurulum ve Entegrasyon
-1. **Lively Wallpaper** uygulamasını açın.
-2. Proje dizinindeki `index.html` dosyasını sürükleyip Lively Wallpaper kütüphanesine bırakın.
-
-### Kişiselleştirme Seçenekleri (Lively Properties)
-Duvar kağıdınıza sağ tıklayıp **"Özelleştir" (Customize)** seçeneğini kullanarak şu özellikleri doğrudan Lively arayüzünden ayarlayabilirsiniz:
-* **Masaüstü Etkileşimi**: Masaüstünde çalışırken arka planın hareket edip etmeyeceğini kilitler veya açar.
-* **Arayüz Görünümü**: Kontrol panelini tamamen gizleyerek temiz bir uzay manzarası sunar.
-* **Zaman Kontrolü**: Gezegenlerin yörünge hareketlerini duraklatır veya devam ettirir.
-* **Hız Ayarı**: Simülasyonun zaman akış hızını (0x - 3x) ayarlar.
-* **Ölçeklendirme**: Gezegen boyutlarını ve yörünge mesafelerini gerçekçi bilimsel oranlara getirir.
-* **Yörünge Çizgileri**: Gezegenlerin yörünge yollarını gösterir veya gizler.
-* **Panel Şeffaflığı**: Arayüz panelinin opaklık düzeyini belirler.
+👉 **[Launch Live Web Simulation](https://maximusprime77.github.io/gunes-sistemi-simulasyonu/)**
+📦 **[Download Desktop Setup (.exe / Portable)](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)**
 
 ---
 
-## 📦 Masaüstü Uygulaması (Setup Sürümü / Desktop App)
+## 🖥️ Live Wallpaper Integration (Lively Wallpaper)
 
-Projeyi masaüstünüzde bağımsız bir Electron uygulaması olarak çalıştırmak için paketlenmiş kurulum sürümünü (.exe) kullanabilirsiniz.
+This project features full out-of-the-box integration with **Lively Wallpaper**, operating smoothly as a dynamic live background without interfering with your workflow.
 
-### 📥 İndirme ve Kurulum
-1. GitHub deposunun **[Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** bölümüne gidin.
-2. Yayınlanan en son sürümdeki `Gunes Sistemi Setup 1.0.0.exe` (veya `release` klasöründeki installer) dosyasını indirin.
-3. Kurulum dosyasını çalıştırarak simülasyonu doğrudan bilgisayarınıza yükleyin!
+<img src="./lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
 
----
+### How to Install on Lively Wallpaper
+1. Open **Lively Wallpaper** on your Windows PC.
+2. Drag and drop the `index.html` file (or project folder) directly into your Lively library.
 
-## 🚀 Özellikler / Features
-
-* **Three.js & WebGL Altyapısı:** Yüksek performanslı 3D render motoru.
-* **Modern Tipografi:** Türkçe karakter uyumlu geometrik **Outfit** font ailesi ile temiz ve estetik görünüm.
-* **Özel Shader Tasarımları (GLSL):**
-    * 🌞 **Güneş:** Dinamik hareketli yüzey ve korona (glow) efektleri.
-    * 🌍 **Atmosfer:** Dünya için gerçekçi atmosferik ışık saçılması.
-* **Post-Processing:** UnrealBloomPass ile sinematik parlama ve neon efektleri.
-* **İnteraktif Bilgi Sistemi:** Gezegenlerin üzerine tıklayarak ansiklopedik bilgilere erişim ve Dünya ile kıyaslama hologramı.
-* **Kolay Arayüz Kapatma**: Bilgi kartları veya kontrol merkezi açıkken ekranda boşluğa tıklayarak panelleri kapatabilme özelliği.
-
----
-
-## 🎮 Kontroller / Controls
-
-| Eylem / Action | Kontrol / Input |
-| :--- | :--- |
-| **Etkileşim Kilidi / Interaction Lock** | Kontrol Panelindeki Kilit Butonu veya Lively Özelleştir Menüsü |
-| **Döndür / Rotate** | Sol Tık + Sürükle (Left Click + Drag) *(Kilit açıkken / When Unlocked)* |
-| **Yakınlaş / Zoom** | Kontrol Panelindeki **YAKINLAŞTIRMA** Kaydırıcısı (Slider) |
-| **Bilgi Al / Info** | Gezegene Sol Tık (Left Click on Planet) |
-| **Odaklan / Focus** | Gezegene Orta Tık (Middle Click on Planet) |
-| **Panelleri Kapat / Close Panels** | Boşluğa Sol Tık (Left Click on Empty Space) |
+### Customization Options (Lively Properties)
+Right-click your active wallpaper in Lively and select **Customize** to adjust these parameters dynamically on the fly:
+* **Language (Dil)**: Toggle seamlessly between English and Turkish.
+* **Desktop Interaction**: Lock or unlock background camera navigation (rotate/zoom) while working on your desktop.
+* **UI Visibility**: Hide the control panel completely for a pristine, cinematic space panorama.
+* **Time Controls**: Freeze or resume planetary orbital movement.
+* **Simulation Speed**: Scale time speed from 0x to 3x.
+* **Realistic Scaling**: Switch planet sizes and orbital distances between artistic and scientific proportions.
+* **Orbital Lines**: Show or hide planetary orbit paths.
+* **Panel Opacity**: Adjust control panel transparency.
 
 ---
 
-## 💻 Teknolojiler / Technologies
+## 🚀 Key Features
+
+* **Three.js & WebGL Rendering:** High-performance 3D graphics pipeline with smooth rendering.
+* **Multi-Language Support (i18n):** Full support for both English and Turkish across all panels and encyclopedic tables.
+* **Custom GLSL Shaders:**
+  * 🌞 **The Sun:** Dynamic surface noise textures and corona atmospheric glow.
+  * 🌍 **Atmosphere:** Realistic atmospheric light scattering for terrestrial planets.
+* **Cinematic Post-Processing:** UnrealBloomPass integration for vivid glow and lens effects.
+* **Encyclopedic Info & Comparison:** Click any celestial body to view physical parameters (diameter, surface temp, gravity, escape velocity, atmosphere composition) and generate a wireframe Earth comparison hologram.
+* **Clean Panel Navigation:** Click anywhere in empty space to dismiss active info cards or control panels.
+
+---
+
+## 🎮 Controls
+
+| Action | Control / Input | Description |
+| :--- | :--- | :--- |
+| **Language Switch** | Control Panel Language Button | Toggle between English 🇬🇧 and Turkish 🇹🇷 |
+| **Interaction Lock** | Control Panel Lock Button | Toggle mouse navigation lock on/off |
+| **Rotate Camera** | Left Click + Drag | Rotate the view around the solar system *(when unlocked)* |
+| **Zoom** | Control Panel Zoom Slider / Mouse Wheel | Zoom in and out |
+| **Inspect Celestial Body** | Left Click on Planet | Open detailed encyclopedic information card |
+| **Focus Camera** | Middle Click on Planet | Instantly move and align camera to target planet |
+| **Close Panels** | Left Click on Empty Space | Dismiss all active UI windows and cards |
+
+---
+
+## 📦 Desktop App Installation (Windows Setup)
+
+You can run this project as a standalone desktop software without opening a web browser.
+
+1. Navigate to the **[GitHub Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** page.
+2. Download the latest `Gunes-Sistemi-v1.0.0-win64.zip` or installation package.
+3. Extract and run `Gunes Sistemi.exe` to launch immediately.
+
+---
+
+## 💻 Tech Stack
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat&logo=javascript)
 ![Three.js](https://img.shields.io/badge/Three.js-3D%20Engine-black?style=flat&logo=three.js)
 ![HTML5](https://img.shields.io/badge/HTML5-Structure-orange?style=flat&logo=html5)
 ![CSS3](https://img.shields.io/badge/CSS3-Styling-blue?style=flat&logo=css3)
 ![Vite](https://img.shields.io/badge/Vite-Bundler-purple?style=flat&logo=vite)
+![Electron](https://img.shields.io/badge/Electron-Desktop-47848F?style=flat&logo=electron)
 
 ---
 
-### 👤 Yazar / Author
+### 👤 Author
 
 **MaximusPrime77**
 * GitHub: [@MaximusPrime77](https://github.com/MaximusPrime77)
