@@ -2,7 +2,7 @@
   "isLocked": {
     "type": "checkbox",
     "text": "Masaüstü Etkileşimini Kilitle",
-    "value": true,
+    "value": false,
     "help": "Masaüstünüzde çalışırken simülasyonun yanlışlıkla dönmesini veya yakınlaşmasını önler."
   },
   "showUI": {
@@ -46,5 +46,15 @@
     "value": 85,
     "step": 5,
     "help": "Arayüz panelinin şeffaflık yüzdesini ayarlar."
+  },
+  "language": {
+    "type": "dropdown",
+    "text": "Dil / Language",
+    "value": 0,
+    "options": [
+      "English 🇬🇧",
+      "Türkçe 🇹🇷"
+    ],
+    "help": "Arayüz ve gezegen bilgilerinin dilini değiştirir."
   }
 }

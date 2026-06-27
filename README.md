@@ -26,7 +26,9 @@ Projeyi aşağıdaki bağlantıdan canlı olarak inceleyebilirsiniz:
 
 ## 🖥️ Lively Wallpaper ile Duvar Kağıdı Kullanımı
 
-Bu proje, Lively Wallpaper ile tam entegrasyon sunar ve masaüstü deneyiminizi kesintiye uğratmadan arka planda çalışır.
+Bu proje, **Lively Wallpaper** ile tam entegrasyon sunar ve masaüstü deneyiminizi kesintiye uğratmadan canlı bir 3D uzay duvar kağıdı olarak arka planda çalışır.
+
+<img src="./lively-wallpaper-preview.png" alt="Lively Wallpaper Önizleme" width="100%" />
 
 ### Kurulum ve Entegrasyon
 1. **Lively Wallpaper** uygulamasını açın.
@@ -41,6 +43,17 @@ Duvar kağıdınıza sağ tıklayıp **"Özelleştir" (Customize)** seçeneğini
 * **Ölçeklendirme**: Gezegen boyutlarını ve yörünge mesafelerini gerçekçi bilimsel oranlara getirir.
 * **Yörünge Çizgileri**: Gezegenlerin yörünge yollarını gösterir veya gizler.
 * **Panel Şeffaflığı**: Arayüz panelinin opaklık düzeyini belirler.
+
+---
+
+## 📦 Masaüstü Uygulaması (Setup Sürümü / Desktop App)
+
+Projeyi masaüstünüzde bağımsız bir Electron uygulaması olarak çalıştırmak için paketlenmiş kurulum sürümünü (.exe) kullanabilirsiniz.
+
+### 📥 İndirme ve Kurulum
+1. GitHub deposunun **[Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** bölümüne gidin.
+2. Yayınlanan en son sürümdeki `Gunes Sistemi Setup 1.0.0.exe` (veya `release` klasöründeki installer) dosyasını indirin.
+3. Kurulum dosyasını çalıştırarak simülasyonu doğrudan bilgisayarınıza yükleyin!
 
 ---
 

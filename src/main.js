@@ -15,10 +15,11 @@ const state = {
     comparisonMesh: null,
     isTrueScale: false,
     simulationStartTime: Date.now(),
-    isLocked: true,
+    isLocked: false,
     showOrbits: false,
     showUI: true,
-    panelOpacity: 85
+    panelOpacity: 85,
+    language: 'en'
 };
 
 const planets = [];
@@ -131,6 +132,9 @@ window.livelyPropertyListener = function (name, val) {
         case "panelOpacity":
             state.panelOpacity = val;
             localStorage.setItem('panelOpacity', val.toString());
+            break;
+        case "language":
+            state.language = val === 0 ? "en" : (val === 1 ? "tr" : val);
             break;
     }
     applySimulationSettings();
