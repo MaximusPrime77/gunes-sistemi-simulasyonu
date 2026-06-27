@@ -5,6 +5,8 @@ function createWindow () {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
+    show: false,
+    backgroundColor: '#050811',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -14,6 +16,10 @@ function createWindow () {
   });
 
   win.loadFile(path.join(__dirname, 'dist/index.html'));
+
+  win.once('ready-to-show', () => {
+    win.show();
+  });
 }
 
 app.whenReady().then(() => {
