@@ -1,89 +1,105 @@
-# 🌌 SOLAR SYSTEM SIMULATION 3D
+# 🌌 SOLAR SYSTEM SIMULATION 3D (SolarSystemSimulation3D)
 
 <img src="https://raw.githubusercontent.com/MaximusPrime77/SolarSystemSimulation3D/main/media/preview-main.png" alt="Solar System Simulation Preview" width="100%" />
 
-An interactive, ultra-realistic 3D Solar System simulation built with modern web technology (**Three.js & WebGL**). It offers a stunning visual experience along with educational, encyclopedic planetary data, custom GLSL shaders, atmospheric light refraction, dynamic orbit mechanics, and dual-language (English/Turkish) support.
+An interactive, ultra-realistic 3D Solar System simulation built with modern web and 3D graphics technologies (**Three.js & WebGL**). It delivers a breathtaking visual panorama alongside comprehensive educational and encyclopedic planetary data, custom GLSL atmospheric shaders, dynamic orbital physics, cinematic post-processing bloom, and out-of-the-box dual-language (English 🇬🇧 / Turkish 🇹🇷) support.
 
-Additionally, with **Lively Wallpaper** integration, you can run this simulation live as your interactive 3D Windows desktop background.
+Additionally, with native **Lively Wallpaper** integration, you can run this live simulation interactively directly as your 3D Windows desktop background.
 
 ---
 
-## 🔗 Live Demo & Downloads
+## 🔗 Live Demo & Download Links
 
-👉 **[Launch Live Web Simulation](https://maximusprime77.github.io/SolarSystemSimulation3D/)**
+👉 **[🚀 Launch Live Web Simulation](https://maximusprime77.github.io/SolarSystemSimulation3D/)**
 
-### 📦 Published Release Packages (v1.0.0)
-* 💿 **[SolarSystemSimulation3D Setup 1.0.0.exe](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Automated Windows Installer
-* 💼 **[SolarSystemSimulation3D-Portable.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Standalone Portable Windows App (No Install)
-* 🌐 **[SolarSystemSimulation3D-Web.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Offline Web Build & Lively Wallpaper Package
+### 📦 Latest Release Packages (v1.0.0)
+* 💿 **[SolarSystemSimulation3D Setup 1.0.0.exe](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases/download/v1.0.0/SolarSystemSimulation3D.Setup.1.0.0.exe)** – Automated Windows Desktop Installer
+* 💼 **[SolarSystemSimulation3D-Portable.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases/download/v1.0.0/SolarSystemSimulation3D-Portable.zip)** – Standalone Portable Windows App (No Setup Required)
+* 🌐 **[SolarSystemSimulation3D-Web.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases/download/v1.0.0/SolarSystemSimulation3D-Web.zip)** – Offline Web Package & Lively Wallpaper Distribution
 
 ---
 
 ## 🖥️ Live Wallpaper Integration (Lively Wallpaper)
 
-This project features full out-of-the-box integration with **Lively Wallpaper**, operating smoothly as a dynamic live background without interfering with your workflow.
+This project features native support for **Lively Wallpaper**, enabling it to operate as a dynamic, interactive 3D desktop wallpaper without disrupting your daily workflow.
 
 <img src="https://raw.githubusercontent.com/MaximusPrime77/SolarSystemSimulation3D/main/media/lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
 
-### How to Install on Lively Wallpaper
-1. Open **Lively Wallpaper** on your Windows PC.
-2. Drag and drop the `index.html` file (or project folder) directly into your Lively library.
+### 🚀 How to Install on Lively Wallpaper
+1. Download and extract **`SolarSystemSimulation3D-Web.zip`** (or clone the repository).
+2. Open **Lively Wallpaper** on your Windows PC.
+3. Drag and drop the `index.html` file (or extracted folder) directly into your Lively library window.
 
-### Customization Options (Lively Properties)
-Right-click your active wallpaper in Lively and select **Customize** to adjust these parameters dynamically on the fly:
+### 🎛️ Customization Options (Lively Properties)
+Right-click your active wallpaper in Lively and select **Customize** to dynamically configure the following live parameters:
 * **Language (Dil)**: Toggle seamlessly between English and Turkish.
-* **Desktop Interaction**: Lock or unlock background camera navigation (rotate/zoom) while working on your desktop.
-* **UI Visibility**: Hide the control panel completely for a pristine, cinematic space panorama.
-* **Time Controls**: Freeze or resume planetary orbital movement.
-* **Simulation Speed**: Scale time speed from 0x to 3x.
-* **Realistic Scaling**: Switch planet sizes and orbital distances between artistic and scientific proportions.
-* **Orbital Lines**: Show or hide planetary orbit paths.
-* **Panel Opacity**: Adjust control panel transparency.
+* **Desktop Interaction**: Lock or unlock background mouse camera navigation (rotate/zoom).
+* **UI Visibility**: Show or hide the floating control panel for a pure cinematic panorama.
+* **Time Controls**: Freeze orbital movement or resume in real-time.
+* **Simulation Speed**: Scale simulation temporal speed from 0x to 3x.
+* **Realistic Scaling**: Switch planet dimensions and orbital radii between aesthetic and scientific proportions.
+* **Orbital Lines**: Toggle planetary orbit path lines.
+* **Panel Opacity**: Adjust control panel glassmorphism transparency.
 
 ---
 
 ## 🚀 Key Features
 
-* **Three.js & WebGL Rendering:** High-performance 3D graphics pipeline with smooth rendering.
-* **Multi-Language Support (i18n):** Full support for both English and Turkish across all panels and encyclopedic tables.
+* **Advanced Three.js & WebGL Engine:** High-framerate 3D rendering pipeline with procedural particle stars and custom galaxy skybox textures.
+* **Dual-Language Support (i18n):** Real-time, instant UI language switching between English 🇬🇧 and Turkish 🇹🇷 across all control sliders, tooltips, and encyclopedic data sheets.
 * **Custom GLSL Shaders:**
-  * 🌞 **The Sun:** Dynamic surface noise textures and corona atmospheric glow.
-  * 🌍 **Atmosphere:** Realistic atmospheric light scattering for terrestrial planets.
-* **Cinematic Post-Processing:** UnrealBloomPass integration for vivid glow and lens effects.
-* **Encyclopedic Info & Comparison:** Click any celestial body to view physical parameters (diameter, surface temp, gravity, escape velocity, atmosphere composition) and generate a wireframe Earth comparison hologram.
-* **Clean Panel Navigation:** Click anywhere in empty space to dismiss active info cards or control panels.
+  * 🌞 **The Sun:** Dynamic surface noise textures with dynamic corona atmospheric light scattering.
+  * 🌍 **Atmospheres:** Custom limb-scattering shaders for Earth, Venus, and gas giant atmospheres.
+* **Cinematic Post-Processing:** `UnrealBloomPass` bloom rendering for realistic solar glare and lens flare effects.
+* **Encyclopedic Planetary Cards:** Click on any celestial body (Sun, Mercury, Venus, Earth, Moon, Mars, Ceres, Jupiter, Saturn, Uranus, Neptune, Pluto, Eris) to inspect physical data tables (diameter, surface temp, gravity, escape velocity, atmospheric composition) and generate an interactive wireframe Earth size comparison hologram.
+* **Instant UI Navigation:** Click anywhere in empty space to dismiss active info cards or control panels cleanly.
 
 ---
 
-## 🎮 Controls
+## 🎮 Controls & Interaction Guide
 
-| Action | Control / Input | Description |
+| Action | Input / Control | Description |
 | :--- | :--- | :--- |
 | **Language Switch** | Control Panel Language Button | Toggle between English 🇬🇧 and Turkish 🇹🇷 |
-| **Interaction Lock** | Control Panel Lock Button | Toggle mouse navigation lock on/off |
-| **Rotate Camera** | Left Click + Drag | Rotate the view around the solar system *(when unlocked)* |
-| **Zoom** | Control Panel Zoom Slider / Mouse Wheel | Zoom in and out |
-| **Inspect Celestial Body** | Left Click on Planet | Open detailed encyclopedic information card |
-| **Focus Camera** | Middle Click on Planet | Instantly move and align camera to target planet |
+| **Interaction Lock** | Control Panel Lock Button | Toggle mouse camera rotation lock on/off |
+| **Rotate Camera** | Left Click + Drag | Orbit camera around selected focus point *(when unlocked)* |
+| **Zoom** | Control Panel Zoom Slider / Mouse Wheel | Smoothly adjust camera focal distance |
+| **Inspect Celestial Body** | Left Click on Planet | Open detailed encyclopedic information card & comparison |
+| **Focus Camera** | Middle Click on Planet | Instantly move camera pivot to targeted planet |
 | **Close Panels** | Left Click on Empty Space | Dismiss all active UI windows and cards |
 
 ---
 
-## 📦 Downloads & Installation Guide
+## 🛠️ Local Development & Build Commands
 
-You can run this project as a standalone desktop software or offline web package without opening an external browser.
+If you wish to build or modify the project locally from source:
 
-### 💿 1. Windows Installer (`SolarSystemSimulation3D Setup 1.0.0.exe`)
-1. Download **`SolarSystemSimulation3D Setup 1.0.0.exe`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
-2. Run the setup file to automatically install the simulation onto your PC.
+### 1. Prerequisites & Installation
+```bash
+git clone https://github.com/MaximusPrime77/SolarSystemSimulation3D.git
+cd SolarSystemSimulation3D
+npm install
+```
 
-### 💼 2. Portable Desktop App (`SolarSystemSimulation3D-Portable.zip`)
-1. Download **`SolarSystemSimulation3D-Portable.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
-2. Extract the zip file and run `SolarSystemSimulation3D.exe` immediately without setup.
-
-### 🌐 3. Web & Lively Wallpaper Package (`SolarSystemSimulation3D-Web.zip`)
-1. Download **`SolarSystemSimulation3D-Web.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
-2. Extract and drag `index.html` into **Lively Wallpaper** for live interactive 3D desktop wallpapers.
+### 2. Available Scripts
+* **Development Server:** Run local dev server with hot reload:
+  ```bash
+  npm start
+  # or
+  npx vite
+  ```
+* **Build Web Distribution (`dist/`):** Compile production web assets:
+  ```bash
+  npm run build
+  ```
+* **Build Desktop Setup Installer (`.exe`):** Compile Windows installer package:
+  ```bash
+  npm run setup
+  ```
+* **Build Portable Desktop App:** Package standalone desktop executable:
+  ```bash
+  npm run dist
+  ```
 
 ---
 
