@@ -1,6 +1,6 @@
 # 🌌 SOLAR SYSTEM SIMULATION 3D
 
-<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/media/preview-main.png" alt="Solar System Simulation Preview" width="100%" />
+<img src="https://raw.githubusercontent.com/MaximusPrime77/SolarSystemSimulation3D/main/media/preview-main.png" alt="Solar System Simulation Preview" width="100%" />
 
 An interactive, ultra-realistic 3D Solar System simulation built with modern web technology (**Three.js & WebGL**). It offers a stunning visual experience along with educational, encyclopedic planetary data, custom GLSL shaders, atmospheric light refraction, dynamic orbit mechanics, and dual-language (English/Turkish) support.
 
@@ -10,12 +10,12 @@ Additionally, with **Lively Wallpaper** integration, you can run this simulation
 
 ## 🔗 Live Demo & Downloads
 
-👉 **[Launch Live Web Simulation](https://maximusprime77.github.io/gunes-sistemi-simulasyonu/)**
+👉 **[Launch Live Web Simulation](https://maximusprime77.github.io/SolarSystemSimulation3D/)**
 
 ### 📦 Published Release Packages (v1.0.0)
-* 💿 **[Space Simulation Setup 1.0.0.exe](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** – Automated Windows Installer
-* 💼 **[SpaceSimulationPortable-app.zip](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** – Standalone Portable Windows App (No Install)
-* 🌐 **[Space SimulationWeb-app.zip](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)** – Offline Web Build & Lively Wallpaper Package
+* 💿 **[Space Simulation Setup 1.0.0.exe](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Automated Windows Installer
+* 💼 **[SpaceSimulationPortable-app.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Standalone Portable Windows App (No Install)
+* 🌐 **[Space SimulationWeb-app.zip](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)** – Offline Web Build & Lively Wallpaper Package
 
 ---
 
@@ -23,7 +23,7 @@ Additionally, with **Lively Wallpaper** integration, you can run this simulation
 
 This project features full out-of-the-box integration with **Lively Wallpaper**, operating smoothly as a dynamic live background without interfering with your workflow.
 
-<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/media/lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
+<img src="https://raw.githubusercontent.com/MaximusPrime77/SolarSystemSimulation3D/main/media/lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
 
 ### How to Install on Lively Wallpaper
 1. Open **Lively Wallpaper** on your Windows PC.
@@ -74,15 +74,15 @@ Right-click your active wallpaper in Lively and select **Customize** to adjust t
 You can run this project as a standalone desktop software or offline web package without opening an external browser.
 
 ### 💿 1. Windows Installer (`Space Simulation Setup 1.0.0.exe`)
-1. Download **`Space Simulation Setup 1.0.0.exe`** from **[GitHub Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)**.
+1. Download **`Space Simulation Setup 1.0.0.exe`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
 2. Run the setup file to automatically install the simulation onto your PC.
 
 ### 💼 2. Portable Desktop App (`SpaceSimulationPortable-app.zip`)
-1. Download **`SpaceSimulationPortable-app.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)**.
+1. Download **`SpaceSimulationPortable-app.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
 2. Extract the zip file and run `Gunes Sistemi.exe` immediately without setup.
 
 ### 🌐 3. Web & Lively Wallpaper Package (`Space SimulationWeb-app.zip`)
-1. Download **`Space SimulationWeb-app.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/gunes-sistemi-simulasyonu/releases)**.
+1. Download **`Space SimulationWeb-app.zip`** from **[GitHub Releases](https://github.com/MaximusPrime77/SolarSystemSimulation3D/releases)**.
 2. Extract and drag `index.html` into **Lively Wallpaper** for live interactive 3D desktop wallpapers.
 
 ---

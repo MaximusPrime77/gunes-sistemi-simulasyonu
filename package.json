@@ -1,5 +1,5 @@
 {
-  "name": "gunes-sistemi-simulasyonu",
+  "name": "solarsystemsimulation3d",
   "version": "1.0.0",
   "description": "Güneş Sistemi Simülasyonu",
   "main": "main-electron.js",
