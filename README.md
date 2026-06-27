@@ -1,6 +1,6 @@
 # 🌌 SOLAR SYSTEM SIMULATION 3D
 
-<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/preview-main.png" alt="Solar System Simulation Preview" width="100%" />
+<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/media/preview-main.png" alt="Solar System Simulation Preview" width="100%" />
 
 An interactive, ultra-realistic 3D Solar System simulation built with modern web technology (**Three.js & WebGL**). It offers a stunning visual experience along with educational, encyclopedic planetary data, custom GLSL shaders, atmospheric light refraction, dynamic orbit mechanics, and dual-language (English/Turkish) support.
 
@@ -19,7 +19,7 @@ Additionally, with **Lively Wallpaper** integration, you can run this simulation
 
 This project features full out-of-the-box integration with **Lively Wallpaper**, operating smoothly as a dynamic live background without interfering with your workflow.
 
-<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
+<img src="https://raw.githubusercontent.com/MaximusPrime77/gunes-sistemi-simulasyonu/main/media/lively-wallpaper-preview.png" alt="Lively Wallpaper Integration Preview" width="100%" />
 
 ### How to Install on Lively Wallpaper
 1. Open **Lively Wallpaper** on your Windows PC.

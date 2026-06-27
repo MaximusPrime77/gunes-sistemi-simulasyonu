@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "vite build",
-    "dist": "npm run build && npx electron-packager . \"Gunes Sistemi\" --platform=win32 --arch=x64 --out=release --overwrite --icon=icon.ico"
+    "dist": "npm run build && npx electron-packager . \"Gunes Sistemi\" --platform=win32 --arch=x64 --out=builds/desktop --overwrite --icon=icon.ico"
   },
   "keywords": [],
   "author": "Barbaros",
@@ -29,7 +29,7 @@
       "icon": "icon.png"
     },
     "directories": {
-      "output": "release"
+      "output": "builds/installer"
     }
   }
 }
